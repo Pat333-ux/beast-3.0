@@ -1,0 +1,280 @@
+{
+  "version": "3.0",
+  "layer": "Chapter Registry (CR‑S)",
+  "classification": "SAIA‑Class S",
+  "description": "Canonical registry file for all chapters within Beast System 3.0. Defines chapter identity, structure, lineage, authority, wellbeing alignment, and audit requirements.",
+
+  "chapter_registry": {
+    "type": "array",
+    "description": "List of all registered chapters.",
+    "items": {
+      "type": "object",
+      "required": [
+        "chapter_id",
+        "chapter_name",
+        "chapter_type",
+        "ring_class",
+        "status",
+        "identity",
+        "governance",
+        "lineage",
+        "wellbeing_alignment",
+        "ethical_flags",
+        "timestamps",
+        "registry_anchor"
+      ],
+      "properties": {
+        "chapter_id": {
+          "type": "string",
+          "format": "uuid",
+          "description": "Unique identifier for the chapter."
+        },
+        "chapter_name": {
+          "type": "string",
+          "description": "Human-readable name of the chapter."
+        },
+        "chapter_type": {
+          "type": "string",
+          "enum": [
+            "local_chapter",
+            "regional_chapter",
+            "specialized_chapter",
+            "task_force_chapter",
+            "ceremonial_chapter"
+          ],
+          "description": "Classification of the chapter."
+        },
+        "ring_class": {
+          "type": "string",
+          "enum": [
+            "ring_2",
+            "ring_3"
+          ],
+          "description": "Ring classification for authority and inheritance constraints."
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "active",
+            "inactive",
+            "suspended",
+            "dissolved",
+            "pending"
+          ],
+          "description": "Current operational status of the chapter."
+        },
+
+        "identity": {
+          "type": "object",
+          "required": [
+            "identity_id",
+            "chapter_symbol",
+            "chapter_color"
+          ],
+          "properties": {
+            "identity_id": {
+              "type": "string",
+              "description": "Identity Layer ID linked to this chapter."
+            },
+            "chapter_symbol": {
+              "type": "string",
+              "description": "Symbol or insignia representing the chapter."
+            },
+            "chapter_color": {
+              "type": "string",
+              "description": "Primary color associated with the chapter."
+            }
+          }
+        },
+
+        "governance": {
+          "type": "object",
+          "required": [
+            "parent_ministry",
+            "authority_scope",
+            "delegation_rules"
+          ],
+          "properties": {
+            "parent_ministry": {
+              "type": "string",
+              "description": "Ministry responsible for oversight of this chapter."
+            },
+            "authority_scope": {
+              "type": "string",
+              "description": "Description of the chapter's operational authority."
+            },
+            "delegation_rules": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Rules governing delegated authority."
+            }
+          }
+        },
+
+        "lineage": {
+          "type": "object",
+          "required": [
+            "lineage_id",
+            "origin_record",
+            "succession_record"
+          ],
+          "properties": {
+            "lineage_id": {
+              "type": "string",
+              "description": "Lineage Layer ID linked to this chapter."
+            },
+            "origin_record": {
+              "type": "string",
+              "description": "Record describing the chapter's creation."
+            },
+            "succession_record": {
+              "type": "string",
+              "description": "Record describing how leadership succession is handled."
+            }
+          }
+        },
+
+        "wellbeing_alignment": {
+          "type": "object",
+          "required": [
+            "requires_wellbeing_compliance",
+            "wellbeing_domains"
+          ],
+          "properties": {
+            "requires_wellbeing_compliance": {
+              "type": "boolean",
+              "default": true,
+              "description": "Indicates whether the chapter must follow wellbeing standards."
+            },
+            "wellbeing_domains": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "stabilization",
+                  "assessment",
+                  "support_planning",
+                  "continuity",
+                  "harm_prevention"
+                ]
+              },
+              "description": "Wellbeing domains relevant to this chapter."
+            }
+          }
+        },
+
+        "ethical_flags": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "dignity_sensitive",
+              "trauma_sensitive",
+              "non_punitive_only",
+              "requires_harm_reduction_review",
+              "requires_ethical_validation"
+            ]
+          },
+          "description": "Ethical sensitivity flags for chapter operations."
+        },
+
+        "timestamps": {
+          "type": "object",
+          "required": [
+            "created_at"
+          ],
+          "properties": {
+            "created_at": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Timestamp when the chapter was created."
+            },
+            "updated_at": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Timestamp of the most recent update."
+            },
+            "federal_timestamp_anchor": {
+              "type": "boolean",
+              "default": false,
+              "description": "Indicates whether this chapter is anchored to a higher‑rigor timestamp context."
+            }
+          }
+        },
+
+        "registry_anchor": {
+          "type": "object",
+          "required": [
+            "registry_id",
+            "chain_id"
+          ],
+          "properties": {
+            "registry_id": {
+              "type": "string",
+              "description": "Registry Layer ID for this chapter entry."
+            },
+            "chain_id": {
+              "type": "string",
+              "description": "Audit chain ID linked to this chapter."
+            },
+            "log_file": {
+              "type": "string",
+              "default": "chapter-registry-log.json",
+              "description": "Log file for chapter events."
+            }
+          }
+        }
+      }
+    }
+  },
+
+  "audit_requirements": {
+    "log_file": "chapter-event-log.json",
+    "audit_chain": "chapter-audit-chain.json",
+    "rules": [
+      "all chapter events must be logged",
+      "all logs must be chained",
+      "no chapter event may be deleted or altered"
+    ]
+  },
+
+  "cross_layer_linkages": {
+    "identity_layer": [
+      "identity-layer.map.json",
+      "identity-linkage.json"
+    ],
+    "registry_layer": [
+      "registry-layer.map.json",
+      "registry-index.json"
+    ],
+    "organizational_hierarchy_layer": [
+      "organizational-hierarchy.map.json",
+      "executive-authority-map.json"
+    ],
+    "lineage_layer": [
+      "lineage-succession.map.json",
+      "lineage-record.json"
+    ],
+    "ethical_authority_layer": [
+      "ethical-authority.map.json",
+      "dignity-evaluation.json"
+    ],
+    "wellbeing_standards_layer": [
+      "wellbeing-standards.map.json",
+      "wellbeing-metrics.json"
+    ]
+  },
+
+  "federal_context": {
+    "case_number": "2:25-cv-00484-JPH-MJD",
+    "timestamped": true,
+    "author": "Pat Tarwater Jr.",
+    "sovereign_entities": [
+      "New World Order DAO",
+      "New World Order Health & Wellbeing"
+    ],
+    "notes": "Chapter Registry is part of the canonical registry architecture and must remain immutable."
+  }
+}
