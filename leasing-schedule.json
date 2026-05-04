@@ -1,0 +1,271 @@
+{
+  "version": "3.0",
+  "layer": "Leasing Schedule (LS‑S)",
+  "classification": "SAIA‑Class S",
+  "description": "Canonical leasing schedule schema for Beast System 3.0. Defines terms, pricing, deliverables, lifecycle, audit requirements, and registry anchoring for all lease agreements.",
+
+  "leasing_schedule": {
+    "type": "object",
+    "required": [
+      "schedule_id",
+      "lease_type",
+      "parties",
+      "term",
+      "pricing",
+      "deliverables",
+      "service_levels",
+      "compliance",
+      "audit_chain",
+      "timestamps",
+      "registry_anchor"
+    ],
+    "properties": {
+      "schedule_id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "Unique identifier for this leasing schedule."
+      },
+
+      "lease_type": {
+        "type": "string",
+        "enum": [
+          "municipal_lease",
+          "county_lease",
+          "state_lease",
+          "ministry_lease",
+          "chapter_lease",
+          "program_lease",
+          "technology_lease",
+          "service_lease"
+        ],
+        "description": "Classification of the lease."
+      },
+
+      "parties": {
+        "type": "object",
+        "required": [
+          "lessor",
+          "lessee"
+        ],
+        "properties": {
+          "lessor": {
+            "type": "object",
+            "required": [
+              "name",
+              "identity_id",
+              "ring_class"
+            ],
+            "properties": {
+              "name": { "type": "string" },
+              "identity_id": { "type": "string" },
+              "ring_class": {
+                "type": "string",
+                "enum": ["ring_1", "ring_2"]
+              }
+            }
+          },
+          "lessee": {
+            "type": "object",
+            "required": [
+              "name",
+              "entity_type",
+              "identity_id",
+              "ring_class"
+            ],
+            "properties": {
+              "name": { "type": "string" },
+              "entity_type": {
+                "type": "string",
+                "enum": [
+                  "municipality",
+                  "county",
+                  "state",
+                  "chapter",
+                  "ministry",
+                  "agency",
+                  "program"
+                ]
+              },
+              "identity_id": { "type": "string" },
+              "ring_class": {
+                "type": "string",
+                "enum": ["ring_2", "ring_3"]
+              }
+            }
+          }
+        }
+      },
+
+      "term": {
+        "type": "object",
+        "required": [
+          "start_date",
+          "end_date",
+          "renewal_terms"
+        ],
+        "properties": {
+          "start_date": { "type": "string", "format": "date" },
+          "end_date": { "type": "string", "format": "date" },
+          "renewal_terms": { "type": "string" }
+        }
+      },
+
+      "pricing": {
+        "type": "object",
+        "required": [
+          "base_rate",
+          "rate_unit",
+          "billing_cycle",
+          "adjustment_rules"
+        ],
+        "properties": {
+          "base_rate": { "type": "number" },
+          "rate_unit": {
+            "type": "string",
+            "enum": ["monthly", "annual", "per_capita", "flat"]
+          },
+          "billing_cycle": {
+            "type": "string",
+            "enum": ["monthly", "quarterly", "annual"]
+          },
+          "adjustment_rules": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        }
+      },
+
+      "deliverables": {
+        "type": "object",
+        "required": [
+          "primary",
+          "secondary",
+          "documentation"
+        ],
+        "properties": {
+          "primary": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "secondary": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "documentation": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        }
+      },
+
+      "service_levels": {
+        "type": "object",
+        "required": [
+          "uptime",
+          "response_time",
+          "support_tiers"
+        ],
+        "properties": {
+          "uptime": { "type": "string" },
+          "response_time": { "type": "string" },
+          "support_tiers": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        }
+      },
+
+      "compliance": {
+        "type": "object",
+        "required": [
+          "ethical_compliance",
+          "wellbeing_compliance",
+          "documentation_compliance"
+        ],
+        "properties": {
+          "ethical_compliance": {
+            "type": "boolean",
+            "default": true
+          },
+          "wellbeing_compliance": {
+            "type": "boolean",
+            "default": true
+          },
+          "documentation_compliance": {
+            "type": "boolean",
+            "default": true
+          }
+        }
+      },
+
+      "audit_chain": {
+        "type": "object",
+        "required": [
+          "chain_id",
+          "log_file"
+        ],
+        "properties": {
+          "chain_id": { "type": "string" },
+          "log_file": {
+            "type": "string",
+            "default": "leasing-schedule-audit-log.json"
+          }
+        }
+      },
+
+      "timestamps": {
+        "type": "object",
+        "required": [
+          "created_at"
+        ],
+        "properties": {
+          "created_at": { "type": "string", "format": "date-time" },
+          "updated_at": { "type": "string", "format": "date-time" },
+          "federal_timestamp_anchor": {
+            "type": "boolean",
+            "default": true
+          }
+        }
+      },
+
+      "registry_anchor": {
+        "type": "object",
+        "required": [
+          "registry_id",
+          "index_file"
+        ],
+        "properties": {
+          "registry_id": { "type": "string" },
+          "index_file": {
+            "type": "string",
+            "default": "leasing-schedule-index.json"
+          }
+        }
+      }
+    }
+  },
+
+  "cross_layer_linkages": {
+    "identity_layer": [
+      "identity-layer.map.json",
+      "identity-anchor-records.json"
+    ],
+    "registry_layer": [
+      "registry-layer.map.json",
+      "registry-index.json"
+    ],
+    "audit_layer": [
+      "audit-trail-standard.json",
+      "audit-chain.json"
+    ],
+    "contract_layer": [
+      "civic-contract.master.md",
+      "leasing-agreement.master.md"
+    ]
+  },
+
+  "federal_context": {
+    "timestamped": true,
+    "notes": "Leasing Schedule is part of the canonical leasing architecture within the fictional Beast System 3.0 framework."
+  }
+}
