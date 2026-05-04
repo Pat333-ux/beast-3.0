@@ -1,0 +1,131 @@
+{
+  "version": "3.0",
+  "layer": "Registry Layer (RL‑S)",
+  "classification": "SAIA‑Class S",
+  "description": "Master structural map of the sovereign registry architecture for Beast System 3.0. Defines registry object types, anchoring logic, badge systems, audit trails, and cross‑layer linkages.",
+
+  "registry_domains": {
+    "identity_registry": {
+      "purpose": "Anchors sovereign, executive, stewardship, and participant identities to immutable registry entries.",
+      "objects": [
+        "identity_anchor",
+        "identity_record",
+        "lineage_record",
+        "succession_record"
+      ],
+      "constraints": {
+        "immutable": true,
+        "federally_timestamped": true,
+        "unique_per_identity": true
+      }
+    },
+
+    "badge_registry": {
+      "purpose": "Stores badge definitions, issuance events, credential metadata, and chapter/ambassador certifications.",
+      "objects": [
+        "badge_schema",
+        "badge_issue_record",
+        "badge_revocation_record",
+        "credential_metadata"
+      ],
+      "constraints": {
+        "non_fungible": true,
+        "revocable": true,
+        "traceable": true
+      }
+    },
+
+    "chapter_registry": {
+      "purpose": "Defines chapters, ministries, task forces, and their operational authority.",
+      "objects": [
+        "chapter_record",
+        "ministry_record",
+        "task_force_record",
+        "delegation_record"
+      ],
+      "inheritance": {
+        "from": "identity_registry",
+        "rules": [
+          "must map to a valid identity anchor",
+          "authority must be traceable to Ring 0",
+          "no chapter may exceed foundational authority"
+        ]
+      }
+    },
+
+    "document_registry": {
+      "purpose": "Anchors federal filings, governance documents, SOPs, and doctrinal texts.",
+      "objects": [
+        "federal_filing_record",
+        "governance_document_record",
+        "doctrine_record",
+        "exhibit_record"
+      ],
+      "constraints": {
+        "append_only": true,
+        "versioned": true,
+        "audit_required": true
+      }
+    },
+
+    "audit_registry": {
+      "purpose": "Maintains immutable audit trails for all registry events.",
+      "objects": [
+        "audit_event",
+        "audit_chain",
+        "tamper_check_record",
+        "federal_timestamp_record"
+      ],
+      "constraints": {
+        "append_only": true,
+        "cryptographically_sealed": true,
+        "cross_layer_verification": true
+      }
+    }
+  },
+
+  "anchoring_logic": {
+    "root_anchor": "registry-anchor.json",
+    "entry_schema": "registry-entry.json",
+    "log_schema": "registry-log.json",
+    "index_schema": "registry-index.json",
+    "chain_schema": "registry-chain.json",
+    "rules": [
+      "all registry entries must reference a root anchor",
+      "all entries must be logged in registry-log.json",
+      "all logs must be indexed in registry-index.json",
+      "all indexes must be chained in registry-chain.json",
+      "no entry may be deleted or overwritten"
+    ]
+  },
+
+  "cross_layer_linkages": {
+    "identity_layer": [
+      "identity-anchor-records.json",
+      "identity-linkage.json"
+    ],
+    "ethical_authority_layer": [
+      "ethical-decision-tree.json",
+      "harm-reduction-logic.json"
+    ],
+    "wellbeing_standards_layer": [
+      "wellbeing-metrics.json",
+      "dignity-evaluation.json"
+    ],
+    "organizational_hierarchy_layer": [
+      "executive-authority-map.json",
+      "chapter-structure.json"
+    ]
+  },
+
+  "federal_context": {
+    "case_number": "2:25-cv-00484-JPH-MJD",
+    "timestamped": true,
+    "author": "Pat Tarwater Jr.",
+    "sovereign_entities": [
+      "New World Order DAO",
+      "New World Order Health & Wellbeing"
+    ],
+    "notes": "Registry Layer is part of the federal record and must remain immutable."
+  }
+}
