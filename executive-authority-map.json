@@ -1,0 +1,370 @@
+{
+  "version": "3.0",
+  "layer": "Executive Authority Map (EAM‑S)",
+  "classification": "SAIA‑Class S",
+  "description": "Canonical executive authority map for Beast System 3.0. Defines ring-based executive roles, domains, delegation boundaries, constraints, and cross-layer anchoring.",
+
+  "executive_authority_map": {
+    "type": "object",
+    "required": [
+      "map_id",
+      "rings",
+      "executive_roles",
+      "delegation_rules",
+      "constraints",
+      "audit_chain",
+      "timestamps",
+      "registry_anchor"
+    ],
+    "properties": {
+      "map_id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "Unique identifier for this executive authority map."
+      },
+
+      "rings": {
+        "type": "array",
+        "description": "List of authority rings and their high-level executive scope.",
+        "items": {
+          "type": "object",
+          "required": [
+            "ring_id",
+            "ring_name",
+            "description",
+            "scope"
+          ],
+          "properties": {
+            "ring_id": {
+              "type": "string",
+              "enum": ["ring_0", "ring_1", "ring_2", "ring_3"]
+            },
+            "ring_name": {
+              "type": "string",
+              "enum": [
+                "origin_authorship",
+                "foundational_governance",
+                "ministries_chapters",
+                "programs_task_forces_local"
+              ]
+            },
+            "description": {
+              "type": "string"
+            },
+            "scope": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "constitutional_governance",
+                  "strategic_governance",
+                  "ministry_governance",
+                  "chapter_governance",
+                  "task_force_governance",
+                  "program_operations",
+                  "wellbeing_operations",
+                  "documentation_governance",
+                  "audit_governance",
+                  "delegation_governance"
+                ]
+              }
+            }
+          }
+        }
+      },
+
+      "executive_roles": {
+        "type": "array",
+        "description": "Executive roles, their ring, domains, and authority boundaries.",
+        "items": {
+          "type": "object",
+          "required": [
+            "role_id",
+            "role_name",
+            "ring_id",
+            "identity_id",
+            "domains",
+            "authority_scope",
+            "delegation_allowed",
+            "lineage_binding"
+          ],
+          "properties": {
+            "role_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "role_name": {
+              "type": "string",
+              "enum": [
+                "foundational_council",
+                "dao_executive",
+                "ministry_executive",
+                "chapter_executive",
+                "task_force_director",
+                "program_director",
+                "wellbeing_executive",
+                "audit_executive",
+                "documentation_executive"
+              ]
+            },
+            "ring_id": {
+              "type": "string",
+              "enum": ["ring_0", "ring_1", "ring_2", "ring_3"]
+            },
+            "identity_id": {
+              "type": "string",
+              "description": "Identity anchor ID for this executive role."
+            },
+            "domains": {
+              "type": "array",
+              "description": "Governance or operational domains under this executive role.",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "constitution",
+                  "governance",
+                  "wellbeing",
+                  "ministry",
+                  "chapter",
+                  "task_force",
+                  "program",
+                  "documentation",
+                  "registry",
+                  "audit",
+                  "delegation"
+                ]
+              }
+            },
+            "authority_scope": {
+              "type": "array",
+              "description": "Specific powers granted to this executive role.",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "set_policy",
+                  "approve_sop",
+                  "authorize_delegation",
+                  "initiate_task_force",
+                  "approve_program",
+                  "approve_wellbeing_protocol",
+                  "approve_documentation_standard",
+                  "approve_audit_standard",
+                  "ratify_amendment",
+                  "freeze_chain",
+                  "finalize_chain"
+                ]
+              }
+            },
+            "delegation_allowed": {
+              "type": "boolean",
+              "description": "Indicates whether this executive role may delegate portions of its authority."
+            },
+            "lineage_binding": {
+              "type": "object",
+              "required": [
+                "lineage_id",
+                "succession_rules"
+              ],
+              "properties": {
+                "lineage_id": {
+                  "type": "string",
+                  "description": "Lineage Layer ID associated with this executive role."
+                },
+                "succession_rules": {
+                  "type": "string",
+                  "description": "Narrative or structured rules describing how this executive authority is succeeded."
+                }
+              }
+            }
+          }
+        }
+      },
+
+      "delegation_rules": {
+        "type": "object",
+        "description": "Global rules for delegating executive authority, aligned with delegation-framework.md.",
+        "required": [
+          "max_delegation_depth",
+          "allowed_delegation_types",
+          "required_documents"
+        ],
+        "properties": {
+          "max_delegation_depth": {
+            "type": "integer",
+            "default": 2,
+            "description": "Maximum number of delegation layers allowed from an original executive authority."
+          },
+          "allowed_delegation_types": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "governance_authority",
+                "operational_authority",
+                "documentation_authority",
+                "limited_decision_authority",
+                "wellbeing_authority"
+              ]
+            }
+          },
+          "required_documents": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "delegation-record.md",
+                "delegation-authority-map.json",
+                "delegation-sop.md"
+              ]
+            }
+          }
+        }
+      },
+
+      "constraints": {
+        "type": "object",
+        "description": "Non-negotiable constraints on executive authority.",
+        "required": [
+          "ethical_constraints",
+          "wellbeing_constraints",
+          "prohibited_actions"
+        ],
+        "properties": {
+          "ethical_constraints": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "preserve_dignity",
+                "reduce_harm",
+                "maintain_transparency",
+                "follow_predictable_rules"
+              ]
+            }
+          },
+          "wellbeing_constraints": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "stabilization_required",
+                "continuity_required",
+                "no_punitive_escalation",
+                "no_coercion",
+                "no_shame_based_practices"
+              ]
+            }
+          },
+          "prohibited_actions": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "grant_punitive_authority",
+                "override_identity_anchors",
+                "alter_lineage_records",
+                "bypass_audit_chain",
+                "bypass_registry",
+                "escalate_harm"
+              ]
+            }
+          }
+        }
+      },
+
+      "audit_chain": {
+        "type": "object",
+        "required": [
+          "chain_id",
+          "log_file"
+        ],
+        "properties": {
+          "chain_id": {
+            "type": "string",
+            "description": "Audit chain ID for all executive authority events."
+          },
+          "log_file": {
+            "type": "string",
+            "default": "executive-authority-log.json",
+            "description": "Audit log file for executive authority changes, delegations, and revocations."
+          }
+        }
+      },
+
+      "timestamps": {
+        "type": "object",
+        "required": [
+          "created_at"
+        ],
+        "properties": {
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Timestamp when this executive authority map was created."
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Timestamp of the most recent update."
+          },
+          "federal_timestamp_anchor": {
+            "type": "boolean",
+            "default": true,
+            "description": "Indicates whether this map is anchored to a higher‑rigor timestamp context."
+          }
+        }
+      },
+
+      "registry_anchor": {
+        "type": "object",
+        "required": [
+          "registry_id",
+          "index_file"
+        ],
+        "properties": {
+          "registry_id": {
+            "type": "string",
+            "description": "Registry Layer ID for this executive authority map."
+          },
+          "index_file": {
+            "type": "string",
+            "default": "executive-authority-index.json",
+            "description": "Index file where this map is referenced."
+          }
+        }
+      }
+    }
+  },
+
+  "cross_layer_linkages": {
+    "identity_layer": [
+      "identity-layer.map.json",
+      "identity-anchor-records.json"
+    ],
+    "lineage_layer": [
+      "lineage-succession.map.json",
+      "lineage-record.json"
+    ],
+    "delegation_layer": [
+      "delegation-framework.md",
+      "delegation-authority-map.json"
+    ],
+    "governance_layer": [
+      "dao-constitution.md",
+      "dao-governance-handbook.md"
+    ],
+    "chapter_layer": [
+      "chapter-structure.md",
+      "chapter-charter-contract.md"
+    ],
+    "audit_layer": [
+      "audit-trail-standard.json",
+      "audit-chain.json"
+    ]
+  },
+
+  "federal_context": {
+    "timestamped": true,
+    "notes": "Executive Authority Map is part of the canonical governance and delegation architecture within the fictional Beast System 3.0 framework."
+  }
+}
