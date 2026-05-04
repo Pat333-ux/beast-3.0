@@ -1,0 +1,58 @@
+service-of-process-log.json (FINAL)
+json
+{
+  "document": "service-of-process-log",
+  "version": "1.0",
+  "case_number": "2:25-cv-00484-JPH-MJD",
+  "plaintiff": {
+    "name": "Pat Tarwater Jr.",
+    "title": "Chief Executive Officer",
+    "organization": "New World Order DAO / New World Order Health & Wellbeing",
+    "contact_email": "illuminatedson49@gmail.com",
+    "ethereum_anchor": "0cad6a0d-1462-47eb-853e-17521d57322e"
+  },
+  "service_events": [
+    {
+      "service_id": "SOP-001",
+      "document_served": "Federal Complaint",
+      "method_of_service": "",
+      "served_on": "",
+      "address": "",
+      "date_served": "",
+      "time_served": "",
+      "server_name": "",
+      "server_title": "",
+      "notes": ""
+    },
+    {
+      "service_id": "SOP-002",
+      "document_served": "Declaratory Judgment",
+      "method_of_service": "",
+      "served_on": "",
+      "address": "",
+      "date_served": "",
+      "time_served": "",
+      "server_name": "",
+      "server_title": "",
+      "notes": ""
+    },
+    {
+      "service_id": "SOP-003",
+      "document_served": "Summons",
+      "method_of_service": "",
+      "served_on": "",
+      "address": "",
+      "date_served": "",
+      "time_served": "",
+      "server_name": "",
+      "server_title": "",
+      "notes": ""
+    }
+  ],
+  "attestation": {
+    "certified_by": "",
+    "title": "",
+    "date_certified": "",
+    "signature": ""
+  }
+}
