@@ -1,0 +1,264 @@
+{
+  "version": "3.0",
+  "layer": "Identity Anchor Records (IA‑S)",
+  "classification": "SAIA‑Class S",
+  "description": "Canonical identity anchor schema for Beast System 3.0. Defines root identities, anchor types, lineage bindings, authority constraints, and registry anchoring.",
+
+  "identity_anchor_records": {
+    "type": "array",
+    "description": "List of all identity anchors within the system.",
+    "items": {
+      "type": "object",
+      "required": [
+        "anchor_id",
+        "identity_id",
+        "anchor_type",
+        "ring_class",
+        "status",
+        "identity_profile",
+        "lineage_binding",
+        "authority_constraints",
+        "ethical_flags",
+        "timestamps",
+        "registry_anchor"
+      ],
+      "properties": {
+        "anchor_id": {
+          "type": "string",
+          "format": "uuid",
+          "description": "Unique identifier for the identity anchor."
+        },
+        "identity_id": {
+          "type": "string",
+          "description": "Identity Layer ID linked to this anchor."
+        },
+        "anchor_type": {
+          "type": "string",
+          "enum": [
+            "root_identity_anchor",
+            "foundational_identity_anchor",
+            "executive_identity_anchor",
+            "lineage_identity_anchor",
+            "participant_identity_anchor",
+            "autonomous_agent_anchor"
+          ],
+          "description": "Classification of the identity anchor."
+        },
+        "ring_class": {
+          "type": "string",
+          "enum": [
+            "ring_0",
+            "ring_1",
+            "ring_2",
+            "ring_3"
+          ],
+          "description": "Ring classification for authority and inheritance constraints."
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "active",
+            "inactive",
+            "revoked",
+            "archived",
+            "pending"
+          ],
+          "description": "Current operational status of the identity anchor."
+        },
+
+        "identity_profile": {
+          "type": "object",
+          "required": [
+            "name",
+            "identity_type",
+            "attributes"
+          ],
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "Human-readable name associated with the identity."
+            },
+            "identity_type": {
+              "type": "string",
+              "enum": [
+                "person",
+                "ministry",
+                "chapter",
+                "task_force",
+                "autonomous_engine"
+              ],
+              "description": "Type of entity represented by this identity."
+            },
+            "attributes": {
+              "type": "object",
+              "description": "Extensible identity attributes (e.g., roles, titles, symbolic markers)."
+            }
+          }
+        },
+
+        "lineage_binding": {
+          "type": "object",
+          "required": [
+            "lineage_id",
+            "origin_record",
+            "succession_path"
+          ],
+          "properties": {
+            "lineage_id": {
+              "type": "string",
+              "description": "Lineage Layer ID linked to this identity."
+            },
+            "origin_record": {
+              "type": "string",
+              "description": "Record describing the identity’s origin within the lineage system."
+            },
+            "succession_path": {
+              "type": "string",
+              "description": "Description of how authority or stewardship succession is handled."
+            }
+          }
+        },
+
+        "authority_constraints": {
+          "type": "object",
+          "required": [
+            "delegated_authority",
+            "limitations",
+            "requires_ethical_validation"
+          ],
+          "properties": {
+            "delegated_authority": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "List of powers delegated to this identity."
+            },
+            "limitations": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "List of authority limitations."
+            },
+            "requires_ethical_validation": {
+              "type": "boolean",
+              "default": true,
+              "description": "Indicates whether actions require ethical validation."
+            }
+          }
+        },
+
+        "ethical_flags": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "dignity_sensitive",
+              "trauma_sensitive",
+              "non_punitive_only",
+              "requires_harm_reduction_review",
+              "requires_ethical_validation"
+            ]
+          },
+          "description": "Ethical sensitivity flags for identity operations."
+        },
+
+        "timestamps": {
+          "type": "object",
+          "required": [
+            "created_at"
+          ],
+          "properties": {
+            "created_at": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Timestamp when the identity anchor was created."
+            },
+            "updated_at": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Timestamp of the most recent update."
+            },
+            "federal_timestamp_anchor": {
+              "type": "boolean",
+              "default": false,
+              "description": "Indicates whether this identity anchor is tied to a higher‑rigor timestamp context."
+            }
+          }
+        },
+
+        "registry_anchor": {
+          "type": "object",
+          "required": [
+            "registry_id",
+            "chain_id"
+          ],
+          "properties": {
+            "registry_id": {
+              "type": "string",
+              "description": "Registry Layer ID for this identity anchor entry."
+            },
+            "chain_id": {
+              "type": "string",
+              "description": "Audit chain ID linked to this identity anchor."
+            },
+            "log_file": {
+              "type": "string",
+              "default": "identity-anchor-log.json",
+              "description": "Log file for identity anchor events."
+            }
+          }
+        }
+      }
+    }
+  },
+
+  "audit_requirements": {
+    "log_file": "identity-anchor-event-log.json",
+    "audit_chain": "identity-anchor-audit-chain.json",
+    "rules": [
+      "all identity anchor events must be logged",
+      "all logs must be chained",
+      "no identity anchor event may be deleted or altered"
+    ]
+  },
+
+  "cross_layer_linkages": {
+    "identity_layer": [
+      "identity-layer.map.json",
+      "identity-linkage.json"
+    ],
+    "registry_layer": [
+      "registry-layer.map.json",
+      "registry-index.json"
+    ],
+    "lineage_layer": [
+      "lineage-succession.map.json",
+      "lineage-record.json"
+    ],
+    "organizational_hierarchy_layer": [
+      "organizational-hierarchy.map.json",
+      "executive-authority-map.json"
+    ],
+    "ethical_authority_layer": [
+      "ethical-authority.map.json",
+      "dignity-evaluation.json"
+    ],
+    "wellbeing_standards_layer": [
+      "wellbeing-standards.map.json",
+      "wellbeing-metrics.json"
+    ]
+  },
+
+  "federal_context": {
+    "case_number": "2:25-cv-00484-JPH-MJD",
+    "timestamped": true,
+    "author": "Pat Tarwater Jr.",
+    "sovereign_entities": [
+      "New World Order DAO",
+      "New World Order Health & Wellbeing"
+    ],
+    "notes": "Identity Anchor Records are part of the canonical identity and registry architecture and must remain immutable."
+  }
+}
