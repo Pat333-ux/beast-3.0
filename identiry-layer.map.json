@@ -1,0 +1,111 @@
+{
+  "version": "3.0",
+  "layer": "Identity Layer (IL‑S)",
+  "classification": "SAIA‑Class S",
+  "description": "Master structural map of the sovereign identity architecture for Beast System 3.0. Defines Rings 0–3, identity object types, linkage rules, and authority inheritance pathways.",
+
+  "rings": {
+    "ring_0_root_identity_anchor": {
+      "purpose": "Defines the singular sovereign root identity from which all doctrinal, executive, and lineage authority originates.",
+      "objects": [
+        "root_identity",
+        "sovereign_authority_anchor",
+        "doctrinal_lineage_record"
+      ],
+      "constraints": {
+        "unique": true,
+        "immutable": true,
+        "federally_timestamped": true
+      }
+    },
+
+    "ring_1_foundational_identities": {
+      "purpose": "Holds sovereign, executive, and foundational identities that derive authority directly from Ring 0.",
+      "objects": [
+        "sovereign_identity",
+        "executive_identity",
+        "foundational_role",
+        "succession_identity"
+      ],
+      "inheritance": {
+        "from": "ring_0_root_identity_anchor",
+        "type": "direct",
+        "rules": [
+          "cannot exceed root authority",
+          "must maintain doctrinal alignment",
+          "must maintain lineage continuity"
+        ]
+      }
+    },
+
+    "ring_2_stewardship_identities": {
+      "purpose": "Defines operational, ministry, chapter, and task‑force identities responsible for governance execution.",
+      "objects": [
+        "ministry_identity",
+        "chapter_identity",
+        "task_force_identity",
+        "delegated_authority_identity"
+      ],
+      "inheritance": {
+        "from": "ring_1_foundational_identities",
+        "type": "delegated",
+        "rules": [
+          "authority is conditional",
+          "authority is revocable",
+          "must follow ethical and trauma‑preventive standards"
+        ]
+      }
+    },
+
+    "ring_3_participant_identities": {
+      "purpose": "Defines individual, community, case, and registry identities that interact with the system.",
+      "objects": [
+        "participant_identity",
+        "case_identity",
+        "registry_record_identity",
+        "credential_holder_identity"
+      ],
+      "inheritance": {
+        "from": "ring_2_stewardship_identities",
+        "type": "operational",
+        "rules": [
+          "no upward authority",
+          "must maintain dignity and safety invariants"
+        ]
+      }
+    }
+  },
+
+  "linkage_rules": {
+    "identity_record": "identity-record.json",
+    "identity_attributes": "identity-attributes.json",
+    "identity_linkage": "identity-linkage.json",
+    "verification_rules": "identity-verification.json",
+    "validator": "validator.identity.json",
+    "lifecycle": "user.lifecycle.json",
+    "state_machine": "user.state-machine.json",
+    "transition_rules": "transition.rules.json",
+    "transition_conditions": "transition.conditions.json"
+  },
+
+  "authority_flow": {
+    "root_to_foundational": "direct inheritance",
+    "foundational_to_stewardship": "delegated authority",
+    "stewardship_to_participant": "operational authority",
+    "constraints": [
+      "no reverse authority flow",
+      "no lateral authority escalation",
+      "all authority must trace back to Ring 0"
+    ]
+  },
+
+  "federal_context": {
+    "case_number": "2:25-cv-00484-JPH-MJD",
+    "timestamped": true,
+    "author": "Pat Tarwater Jr.",
+    "sovereign_entities": [
+      "New World Order DAO",
+      "New World Order Health & Wellbeing"
+    ]
+  }
+}
