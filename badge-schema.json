@@ -1,0 +1,370 @@
+{
+  "version": "3.0",
+  "layer": "Badge & Credential Schema (BS‑S)",
+  "classification": "SAIA‑Class S",
+  "description": "Canonical schema for badges and credentials in Beast System 3.0. Defines structure, types, constraints, and cross-layer linkages for all registry-linked badges.",
+
+  "badge_object": {
+    "type": "object",
+    "required": [
+      "badge_id",
+      "badge_type",
+      "name",
+      "description",
+      "category",
+      "level",
+      "ring_class",
+      "status",
+      "issuer",
+      "holder",
+      "issue_context",
+      "timestamps",
+      "registry_anchor"
+    ],
+    "properties": {
+      "badge_id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "Globally unique identifier for the badge."
+      },
+      "badge_type": {
+        "type": "string",
+        "enum": [
+          "identity_badge",
+          "lineage_badge",
+          "stewardship_badge",
+          "wellbeing_badge",
+          "ethical_badge",
+          "participation_badge",
+          "achievement_badge",
+          "access_badge",
+          "protection_badge"
+        ],
+        "description": "High-level classification of the badge."
+      },
+      "name": {
+        "type": "string",
+        "description": "Human-readable badge name."
+      },
+      "description": {
+        "type": "string",
+        "description": "Detailed description of what the badge represents."
+      },
+      "category": {
+        "type": "string",
+        "enum": [
+          "identity",
+          "lineage",
+          "succession",
+          "governance",
+          "ethical",
+          "wellbeing",
+          "stabilization",
+          "support",
+          "continuity",
+          "protection",
+          "documentation"
+        ],
+        "description": "Functional category of the badge."
+      },
+      "level": {
+        "type": "string",
+        "enum": [
+          "foundational",
+          "operational",
+          "stewardship",
+          "executive",
+          "ceremonial"
+        ],
+        "description": "Level of responsibility or recognition associated with the badge."
+      },
+      "ring_class": {
+        "type": "string",
+        "enum": [
+          "ring_0",
+          "ring_1",
+          "ring_2",
+          "ring_3"
+        ],
+        "description": "Ring classification for authority and inheritance constraints."
+      },
+      "status": {
+        "type": "string",
+        "enum": [
+          "active",
+          "inactive",
+          "revoked",
+          "expired",
+          "pending"
+        ],
+        "description": "Current status of the badge."
+      },
+      "issuer": {
+        "type": "object",
+        "required": [
+          "issuer_id",
+          "issuer_type",
+          "ring_class"
+        ],
+        "properties": {
+          "issuer_id": {
+            "type": "string",
+            "description": "Identity or registry ID of the issuing entity."
+          },
+          "issuer_type": {
+            "type": "string",
+            "enum": [
+              "ring_0_origin",
+              "ring_1_foundational",
+              "ring_2_ministry",
+              "ring_3_chapter",
+              "autonomous_engine"
+            ],
+            "description": "Type of issuer within the organizational hierarchy."
+          },
+          "ring_class": {
+            "type": "string",
+            "enum": [
+              "ring_0",
+              "ring_1",
+              "ring_2",
+              "ring_3"
+            ],
+            "description": "Ring classification of the issuer."
+          }
+        }
+      },
+      "holder": {
+        "type": "object",
+        "required": [
+          "holder_id",
+          "holder_type"
+        ],
+        "properties": {
+          "holder_id": {
+            "type": "string",
+            "description": "Identity or registry ID of the badge holder."
+          },
+          "holder_type": {
+            "type": "string",
+            "enum": [
+              "person",
+              "chapter",
+              "ministry",
+              "task_force",
+              "autonomous_agent"
+            ],
+            "description": "Type of entity holding the badge."
+          }
+        }
+      },
+      "constraints": {
+        "type": "object",
+        "properties": {
+          "non_transferable": {
+            "type": "boolean",
+            "default": true,
+            "description": "If true, badge cannot be transferred between holders."
+          },
+          "revocable": {
+            "type": "boolean",
+            "default": true,
+            "description": "If true, badge may be revoked under defined conditions."
+          },
+          "requires_ethical_validation": {
+            "type": "boolean",
+            "default": true,
+            "description": "If true, issuance and revocation must pass ethical checks."
+          },
+          "requires_wellbeing_alignment": {
+            "type": "boolean",
+            "default": false,
+            "description": "If true, badge is tied to wellbeing standards."
+          }
+        }
+      },
+      "issue_context": {
+        "type": "object",
+        "required": [
+          "reason",
+          "source_system"
+        ],
+        "properties": {
+          "reason": {
+            "type": "string",
+            "description": "Narrative or code describing why the badge was issued."
+          },
+          "source_system": {
+            "type": "string",
+            "description": "System, ministry, or engine that initiated the badge issuance."
+          },
+          "linked_records": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "IDs of related registry, wellbeing, or ethical records."
+          }
+        }
+      },
+      "timestamps": {
+        "type": "object",
+        "required": [
+          "issued_at"
+        ],
+        "properties": {
+          "issued_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Timestamp when the badge was issued."
+          },
+          "expires_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Optional expiration timestamp."
+          },
+          "revoked_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Timestamp when the badge was revoked, if applicable."
+          },
+          "federal_timestamp_anchor": {
+            "type": "boolean",
+            "default": false,
+            "description": "Indicates whether this badge is anchored to a higher‑rigor timestamp context."
+          }
+        }
+      },
+      "registry_anchor": {
+        "type": "object",
+        "required": [
+          "registry_id",
+          "chain_id"
+        ],
+        "properties": {
+          "registry_id": {
+            "type": "string",
+            "description": "ID of the badge entry in the registry layer."
+          },
+          "chain_id": {
+            "type": "string",
+            "description": "ID of the audit chain this badge is linked to."
+          },
+          "log_file": {
+            "type": "string",
+            "default": "badge-registry-log.json",
+            "description": "Name of the log file where badge events are recorded."
+          }
+        }
+      },
+      "ethical_flags": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "enum": [
+            "dignity_sensitive",
+            "trauma_sensitive",
+            "wellbeing_critical",
+            "non_punitive_only",
+            "requires_harm_reduction_review"
+          ]
+        },
+        "description": "Ethical sensitivity flags that affect how the badge may be used."
+      },
+      "metadata": {
+        "type": "object",
+        "description": "Extensible metadata for implementation-specific or ministry-specific fields."
+      }
+    }
+  },
+
+  "event_schema": {
+    "description": "Schema for badge lifecycle events.",
+    "event_object": {
+      "type": "object",
+      "required": [
+        "event_id",
+        "badge_id",
+        "event_type",
+        "timestamp",
+        "actor_id"
+      ],
+      "properties": {
+        "event_id": {
+          "type": "string",
+          "format": "uuid",
+          "description": "Unique identifier for the event."
+        },
+        "badge_id": {
+          "type": "string",
+          "description": "ID of the badge this event refers to."
+        },
+        "event_type": {
+          "type": "string",
+          "enum": [
+            "badge_issued",
+            "badge_updated",
+            "badge_revoked",
+            "badge_expired",
+            "badge_reinstated"
+          ],
+          "description": "Type of lifecycle event."
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the event occurred."
+        },
+        "actor_id": {
+          "type": "string",
+          "description": "Identity or system responsible for the event."
+        },
+        "notes": {
+          "type": "string",
+          "description": "Optional narrative context for the event."
+        }
+      }
+    },
+    "log_file": "badge-event-log.json",
+    "audit_chain": "badge-audit-chain.json",
+    "rules": [
+      "all badge events must be logged",
+      "all logs must be chained",
+      "no badge event may be deleted or altered"
+    ]
+  },
+
+  "cross_layer_linkages": {
+    "identity_layer": [
+      "identity-layer.map.json",
+      "identity-linkage.json"
+    ],
+    "registry_layer": [
+      "registry-layer.map.json",
+      "badge-registry.json"
+    ],
+    "ethical_authority_layer": [
+      "ethical-authority.map.json",
+      "dignity-evaluation.json"
+    ],
+    "wellbeing_standards_layer": [
+      "wellbeing-standards.map.json",
+      "wellbeing-metrics.json"
+    ],
+    "lineage_layer": [
+      "lineage-succession.map.json",
+      "lineage-record.json"
+    ]
+  },
+
+  "federal_context": {
+    "case_number": "2:25-cv-00484-JPH-MJD",
+    "timestamped": true,
+    "author": "Pat Tarwater Jr.",
+    "sovereign_entities": [
+      "New World Order DAO",
+      "New World Order Health & Wellbeing"
+    ],
+    "notes": "Badge & Credential Schema is part of the canonical registry architecture and must remain immutable."
+  }
+}
