@@ -1,0 +1,274 @@
+{
+  "version": "3.0",
+  "layer": "Rate Card (RC‑S)",
+  "classification": "SAIA‑Class S",
+  "description": "Canonical rate card schema for Beast System 3.0. Defines pricing tiers, units, adjustments, service categories, and federal-context rigor for all leasing and service agreements.",
+
+  "rate_card": {
+    "type": "object",
+    "required": [
+      "rate_card_id",
+      "rate_card_type",
+      "currency",
+      "pricing_tiers",
+      "service_categories",
+      "adjustment_rules",
+      "compliance",
+      "timestamps",
+      "registry_anchor"
+    ],
+    "properties": {
+      "rate_card_id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "Unique identifier for this rate card."
+      },
+
+      "rate_card_type": {
+        "type": "string",
+        "enum": [
+          "municipal_rate_card",
+          "county_rate_card",
+          "state_rate_card",
+          "ministry_rate_card",
+          "chapter_rate_card",
+          "program_rate_card",
+          "technology_rate_card",
+          "service_rate_card"
+        ],
+        "description": "Classification of the rate card."
+      },
+
+      "currency": {
+        "type": "string",
+        "enum": ["USD"],
+        "description": "Currency used for pricing."
+      },
+
+      "pricing_tiers": {
+        "type": "array",
+        "description": "List of pricing tiers available under this rate card.",
+        "items": {
+          "type": "object",
+          "required": [
+            "tier_id",
+            "tier_name",
+            "base_rate",
+            "rate_unit",
+            "billing_cycle",
+            "applicable_entities"
+          ],
+          "properties": {
+            "tier_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "tier_name": {
+              "type": "string",
+              "enum": [
+                "foundational",
+                "operational",
+                "enterprise",
+                "executive",
+                "sovereign"
+              ]
+            },
+            "base_rate": {
+              "type": "number",
+              "description": "Base price for this tier."
+            },
+            "rate_unit": {
+              "type": "string",
+              "enum": [
+                "monthly",
+                "annual",
+                "per_capita",
+                "flat",
+                "per_service"
+              ]
+            },
+            "billing_cycle": {
+              "type": "string",
+              "enum": ["monthly", "quarterly", "annual"]
+            },
+            "applicable_entities": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "municipality",
+                  "county",
+                  "state",
+                  "chapter",
+                  "ministry",
+                  "agency",
+                  "program"
+                ]
+              }
+            }
+          }
+        }
+      },
+
+      "service_categories": {
+        "type": "array",
+        "description": "Service categories covered by this rate card.",
+        "items": {
+          "type": "object",
+          "required": [
+            "category_id",
+            "category_name",
+            "description",
+            "rate_modifier"
+          ],
+          "properties": {
+            "category_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "category_name": {
+              "type": "string",
+              "enum": [
+                "governance_services",
+                "wellbeing_services",
+                "technology_services",
+                "data_services",
+                "training_services",
+                "support_services",
+                "stabilization_services"
+              ]
+            },
+            "description": {
+              "type": "string"
+            },
+            "rate_modifier": {
+              "type": "number",
+              "description": "Multiplier applied to the base rate for this service category."
+            }
+          }
+        }
+      },
+
+      "adjustment_rules": {
+        "type": "array",
+        "description": "Rules that modify pricing based on conditions.",
+        "items": {
+          "type": "object",
+          "required": [
+            "rule_name",
+            "rule_type",
+            "value"
+          ],
+          "properties": {
+            "rule_name": {
+              "type": "string"
+            },
+            "rule_type": {
+              "type": "string",
+              "enum": [
+                "percentage_increase",
+                "percentage_decrease",
+                "flat_increase",
+                "flat_decrease",
+                "conditional_modifier"
+              ]
+            },
+            "value": {
+              "type": "number",
+              "description": "Numeric value for the adjustment."
+            },
+            "condition": {
+              "type": "string",
+              "description": "Optional condition for conditional modifiers."
+            }
+          }
+        }
+      },
+
+      "compliance": {
+        "type": "object",
+        "required": [
+          "ethical_compliance",
+          "wellbeing_compliance",
+          "documentation_compliance"
+        ],
+        "properties": {
+          "ethical_compliance": {
+            "type": "boolean",
+            "default": true
+          },
+          "wellbeing_compliance": {
+            "type": "boolean",
+            "default": true
+          },
+          "documentation_compliance": {
+            "type": "boolean",
+            "default": true
+          }
+        }
+      },
+
+      "timestamps": {
+        "type": "object",
+        "required": [
+          "created_at"
+        ],
+        "properties": {
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "federal_timestamp_anchor": {
+            "type": "boolean",
+            "default": true
+          }
+        }
+      },
+
+      "registry_anchor": {
+        "type": "object",
+        "required": [
+          "registry_id",
+          "index_file"
+        ],
+        "properties": {
+          "registry_id": {
+            "type": "string"
+          },
+          "index_file": {
+            "type": "string",
+            "default": "rate-card-index.json"
+          }
+        }
+      }
+    }
+  },
+
+  "cross_layer_linkages": {
+    "contract_layer": [
+      "civic-contract.master.md",
+      "leasing-agreement.master.md"
+    ],
+    "leasing_layer": [
+      "leasing-schedule.json",
+      "leasing-rate-card.json"
+    ],
+    "registry_layer": [
+      "registry-layer.map.json",
+      "registry-index.json"
+    ],
+    "audit_layer": [
+      "audit-trail-standard.json",
+      "audit-chain.json"
+    ]
+  },
+
+  "federal_context": {
+    "timestamped": true,
+    "notes": "Rate Card is part of the canonical pricing architecture within the fictional Beast System 3.0 framework."
+  }
+}
