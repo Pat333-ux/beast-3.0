@@ -1,0 +1,283 @@
+{
+  "version": "3.0",
+  "layer": "Federal Filing Registry (FFR‑S)",
+  "classification": "SAIA‑Class S",
+  "description": "Canonical registry schema for federal‑context filings within Beast System 3.0. Tracks filing identity, classification, lineage, audit chains, ethical constraints, and archival requirements.",
+
+  "federal_filing_registry": {
+    "type": "array",
+    "description": "List of all filings recognized under the internal federal‑context standard.",
+    "items": {
+      "type": "object",
+      "required": [
+        "filing_id",
+        "filing_type",
+        "title",
+        "classification_level",
+        "status",
+        "identity_binding",
+        "lineage_binding",
+        "document_metadata",
+        "ethical_flags",
+        "timestamps",
+        "audit_chain",
+        "registry_anchor"
+      ],
+      "properties": {
+        "filing_id": {
+          "type": "string",
+          "format": "uuid",
+          "description": "Unique identifier for the filing."
+        },
+
+        "filing_type": {
+          "type": "string",
+          "enum": [
+            "governance_document",
+            "doctrine_document",
+            "registry_document",
+            "identity_document",
+            "lineage_document",
+            "audit_document",
+            "wellbeing_document",
+            "structural_document",
+            "exhibit",
+            "appendix",
+            "notice",
+            "statement"
+          ],
+          "description": "Classification of the filing."
+        },
+
+        "title": {
+          "type": "string",
+          "description": "Human-readable title of the filing."
+        },
+
+        "classification_level": {
+          "type": "string",
+          "enum": [
+            "federal_context_level_1",
+            "federal_context_level_2",
+            "federal_context_level_3",
+            "federal_context_level_4"
+          ],
+          "description": "Internal rigor classification for the filing."
+        },
+
+        "status": {
+          "type": "string",
+          "enum": [
+            "submitted",
+            "accepted",
+            "archived",
+            "superseded",
+            "withdrawn",
+            "pending"
+          ],
+          "description": "Current status of the filing."
+        },
+
+        "identity_binding": {
+          "type": "object",
+          "required": [
+            "identity_id",
+            "binding_type"
+          ],
+          "properties": {
+            "identity_id": {
+              "type": "string",
+              "description": "Identity Layer ID associated with the filing."
+            },
+            "binding_type": {
+              "type": "string",
+              "enum": [
+                "authorship_binding",
+                "submission_binding",
+                "executive_binding",
+                "registry_binding"
+              ],
+              "description": "Type of identity relationship to the filing."
+            }
+          }
+        },
+
+        "lineage_binding": {
+          "type": "object",
+          "required": [
+            "lineage_id",
+            "origin_record"
+          ],
+          "properties": {
+            "lineage_id": {
+              "type": "string",
+              "description": "Lineage Layer ID linked to this filing."
+            },
+            "origin_record": {
+              "type": "string",
+              "description": "Record describing the filing’s origin within the lineage system."
+            },
+            "succession_relevance": {
+              "type": "boolean",
+              "default": false,
+              "description": "Indicates whether this filing affects succession or generational stewardship."
+            }
+          }
+        },
+
+        "document_metadata": {
+          "type": "object",
+          "required": [
+            "file_name",
+            "file_type",
+            "hash",
+            "size_bytes"
+          ],
+          "properties": {
+            "file_name": {
+              "type": "string",
+              "description": "Name of the document file."
+            },
+            "file_type": {
+              "type": "string",
+              "enum": [
+                "md",
+                "json",
+                "txt",
+                "pdf",
+                "appendix",
+                "exhibit"
+              ],
+              "description": "Document format classification."
+            },
+            "hash": {
+              "type": "string",
+              "description": "SHA‑256 hash of the document for integrity verification."
+            },
+            "size_bytes": {
+              "type": "integer",
+              "description": "File size in bytes."
+            },
+            "linked_documents": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "List of related filings or exhibits."
+            }
+          }
+        },
+
+        "ethical_flags": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "dignity_sensitive",
+              "trauma_sensitive",
+              "requires_harm_reduction_review",
+              "requires_ethical_validation",
+              "non_punitive_only"
+            ]
+          },
+          "description": "Ethical sensitivity flags for the filing."
+        },
+
+        "timestamps": {
+          "type": "object",
+          "required": [
+            "submitted_at"
+          ],
+          "properties": {
+            "submitted_at": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Timestamp when the filing was submitted."
+            },
+            "updated_at": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Timestamp of the most recent update."
+            },
+            "archived_at": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Timestamp when the filing was archived, if applicable."
+            },
+            "federal_timestamp_anchor": {
+              "type": "boolean",
+              "default": true,
+              "description": "Indicates whether this filing is anchored to a higher‑rigor timestamp context."
+            }
+          }
+        },
+
+        "audit_chain": {
+          "type": "object",
+          "required": [
+            "chain_id",
+            "log_file"
+          ],
+          "properties": {
+            "chain_id": {
+              "type": "string",
+              "description": "Audit chain ID linked to this filing."
+            },
+            "log_file": {
+              "type": "string",
+              "default": "federal-filing-audit-log.json",
+              "description": "Audit log file for filing events."
+            }
+          }
+        },
+
+        "registry_anchor": {
+          "type": "object",
+          "required": [
+            "registry_id",
+            "index_file"
+          ],
+          "properties": {
+            "registry_id": {
+              "type": "string",
+              "description": "Registry Layer ID for this filing entry."
+            },
+            "index_file": {
+              "type": "string",
+              "default": "federal-filing-index.json",
+              "description": "Index file where this filing is referenced."
+            }
+          }
+        }
+      }
+    }
+  },
+
+  "cross_layer_linkages": {
+    "identity_layer": [
+      "identity-layer.map.json",
+      "identity-anchor-records.json"
+    ],
+    "registry_layer": [
+      "registry-layer.map.json",
+      "registry-index.json"
+    ],
+    "lineage_layer": [
+      "lineage-succession.map.json",
+      "lineage-record.json"
+    ],
+    "audit_layer": [
+      "audit-trail-standard.json",
+      "audit-chain.json"
+    ],
+    "doctrine_layer": [
+      "documentation-doctrine.map.json",
+      "authorship-lineage-statement.md"
+    ]
+  },
+
+  "federal_context": {
+    "timestamped": true,
+    "notes": "Federal Filing Registry is part of the canonical documentation and registry architecture within the fictional Beast System 3.0 framework."
+  }
+}
