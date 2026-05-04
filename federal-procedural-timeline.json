@@ -1,0 +1,96 @@
+federal-procedural-timeline.json (FINAL)
+json
+{
+  "document": "federal-procedural-timeline",
+  "version": "1.0",
+  "case_number": "2:25-cv-00484-JPH-MJD",
+  "plaintiff": {
+    "name": "Pat Tarwater Jr.",
+    "title": "Chief Executive Officer",
+    "organization": "New World Order DAO / New World Order Health & Wellbeing",
+    "contact_email": "illuminatedson49@gmail.com",
+    "ethereum_anchor": "0cad6a0d-1462-47eb-853e-17521d57322e"
+  },
+  "timeline": [
+    {
+      "event_id": "PROC-001",
+      "event_type": "Complaint Filed",
+      "document": "federal-complaint.pdf",
+      "date_filed": "",
+      "court_action": "",
+      "notes": ""
+    },
+    {
+      "event_id": "PROC-002",
+      "event_type": "Summons Issued",
+      "document": "summons-template.md",
+      "date_issued": "",
+      "court_action": "",
+      "notes": ""
+    },
+    {
+      "event_id": "PROC-003",
+      "event_type": "Service of Process",
+      "document": "service-of-process-log.json",
+      "date_completed": "",
+      "method": "",
+      "served_on": "",
+      "notes": ""
+    },
+    {
+      "event_id": "PROC-004",
+      "event_type": "Affidavits Filed",
+      "documents": [
+        "affidavit-of-truth.md",
+        "affidavit-of-authorship.md"
+      ],
+      "date_filed": "",
+      "court_action": "",
+      "notes": ""
+    },
+    {
+      "event_id": "PROC-005",
+      "event_type": "Declaratory Judgment Filed",
+      "document": "declatory-judgement.md",
+      "date_filed": "",
+      "court_action": "",
+      "notes": ""
+    },
+    {
+      "event_id": "PROC-006",
+      "event_type": "Memorandum of Law Filed",
+      "document": "memorandum-of-law.md",
+      "date_filed": "",
+      "court_action": "",
+      "notes": ""
+    },
+    {
+      "event_id": "PROC-007",
+      "event_type": "Exhibits Submitted",
+      "documents": [
+        "exhibit-A.md",
+        "exhibit-B.md",
+        "exhibit-C.md",
+        "exhibit-D.md",
+        "exhibit-E.md"
+      ],
+      "date_filed": "",
+      "court_action": "",
+      "notes": ""
+    },
+    {
+      "event_id": "PROC-008",
+      "event_type": "Court Response / Order",
+      "document": "",
+      "date_issued": "",
+      "summary": "",
+      "notes": ""
+    }
+  ],
+  "attestation": {
+    "certified_by": "",
+    "title": "",
+    "date_certified": "",
+    "signature": ""
+  }
+}
