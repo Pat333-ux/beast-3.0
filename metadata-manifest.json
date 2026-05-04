@@ -1,0 +1,100 @@
+metadata-manifest.json (FINAL)
+json
+{
+  "document": "metadata-manifest",
+  "version": "1.0",
+  "description": "Master metadata manifest for Beast System 3.0 (SAIA‑Class S), governing document lineage, file integrity, schema versions, and cross‑repository relationships.",
+  "case_number": "2:25-cv-00484-JPH-MJD",
+
+  "organization": {
+    "name": "New World Order DAO & New World Order Health and Wellbeing",
+    "executive": "Pat Tarwater Jr., Chief Executive Officer",
+    "contact_email": "illuminatedson49@gmail.com",
+    "ethereum_anchor": "0cad6a0d-1462-47eb-853e-17521d57322e",
+    "official_insignia": "Red Ouroboros Dragon — New World Order Health and Wellbeing"
+  },
+
+  "schema": {
+    "manifest_schema_version": "1.0",
+    "registry_schema_version": "1.0",
+    "badge_schema_version": "1.0",
+    "audit_schema_version": "1.0",
+    "governance_schema_version": "1.0",
+    "wellbeing_schema_version": "1.0"
+  },
+
+  "file_integrity": {
+    "hash_algorithm": "SHA-256",
+    "files": [
+      {
+        "file": "governance-index.json",
+        "hash": "",
+        "size_bytes": "",
+        "last_modified": ""
+      },
+      {
+        "file": "federal-filing-registry.json",
+        "hash": "",
+        "size_bytes": "",
+        "last_modified": ""
+      },
+      {
+        "file": "chain-of-custody-log.json",
+        "hash": "",
+        "size_bytes": "",
+        "last_modified": ""
+      }
+    ]
+  },
+
+  "repository_structure": {
+    "sections": [
+      {
+        "name": "Foundational Authority",
+        "range": "001–065",
+        "root_directory": "foundations/",
+        "description": "Constitutional, doctrinal, identity, sovereignty, and authorship materials."
+      },
+      {
+        "name": "Systems & Infrastructure",
+        "range": "066–098",
+        "root_directory": "systems/",
+        "description": "Architecture, intelligence, compliance, registry, and operational systems."
+      },
+      {
+        "name": "Ministerial Standards",
+        "range": "099–161",
+        "root_directory": "ministries/",
+        "description": "Ethical, wellbeing, trauma‑preventive, and ministry‑level governance standards."
+      },
+      {
+        "name": "Federal Filings & Compliance",
+        "range": "162–200",
+        "root_directory": "federal/",
+        "description": "Federal filings, procedural documents, lineage, and audit‑ready compliance artifacts."
+      }
+    ]
+  },
+
+  "cross_reference": {
+    "governance_index": "governance-index.json",
+    "registry_index": "registry-index.json",
+    "federal_registry": "federal-filing-registry.json",
+    "audit_chain": "chain-of-custody-log.json",
+    "badge_schema": "badge-schema.json",
+    "wellbeing_map": "wellbeing-standards.map.json"
+  },
+
+  "lifecycle": {
+    "created": "2026-05-04",
+    "last_updated": "",
+    "update_policy": "All updates must be logged in chain-of-custody-log.json with hash verification."
+  },
+
+  "attestation": {
+    "certified_by": "Pat Tarwater Jr.",
+    "title": "Chief Executive Officer",
+    "date_certified": "",
+    "signature": ""
+  }
+}
